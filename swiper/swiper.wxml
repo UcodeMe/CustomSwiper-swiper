@@ -1,2 +1,65 @@
-<!--pages/prize/swiper/swiper.wxml-->
-<text>pages/prize/swiper/swiper.wxml</text>
+
+<scroll-view>
+<view class='swiper-cont'>
+
+  <view class='swiper-container'>
+
+    <view animation="{{ swiperAnimationData }}" style='width:{{ swiperContainWidth + "rpx" }}' bindtouchstart='swiperTouchStart' bindtouchmove='swiperTouchMove' bindtouchend='swiperTouchEnd' class='card-swiper-box'>
+
+
+      <!-- <view wx:for='{{swiperImgUrls}}'>
+            <text class='card-item1'>{{item.title}}</text>     
+               <image src='{{item.url}}' class='card-item' ></image>  
+             {{item.title}} 
+      </view>  -->
+      <template name="goodItem">
+        <text class='Gtitle'>{{prize_name}}</text>
+        <text class='Gdesc'>{{prize_desc}}</text>
+        <text class="show-btn" data-id="{{id}}" bindtap="showDialogBtn">弹窗</text> 
+        <image class='GImage' src='{{prize_icon}}'></image>
+        <text class='Integral'>{{c_integral}}金币</text>
+        <image class='chButton' src='../../images/chButton.png'></image>
+        <image src='../../images/Gbg.png' class='card-item'></image>
+        
+         <!-- <button class="show-btn" bindtap="getExchange">弹窗</button>  -->
+      </template>
+      
+      <block wx:for="{{swiperImgUrls}}" class='Gcard'>
+        <template is="goodItem" data="{{...item}}" />
+      </block>
+    </view>
+  </view>
+  <!-- <view style='text-align: center'>
+    <block wx:for='{{ swiperImgUrls.length }}'>
+      <view class='swiper-dot c_7-bg {{ swiperIndex ==index? "swiper-dot-active":"" }}'></view>
+    </block>
+  </view> -->
+
+  <!-- <image class='next' src='{{next}}'></image>
+  <image class='pre' src='{{pre}}'></image> -->
+
+   <!-- 弹窗 -->
+<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<form class="modal-dialog" wx:if="{{showModal}}" bindsubmit="formSubmit" bindreset="formReset">
+  <view class="modal-title">请添加手机号</view>
+  <view class="modal-content">
+    <!-- <view class="modal-input">
+      <input placeholder-class="input-holder" type="text" name="nickname" maxlength="20" bindinput="inputChange" class="input" placeholder="请输入姓名" required></input>
+    </view> -->
+
+    <view class="modal-input">
+      <input placeholder-class="input-holder" type="number" name="phone" maxlength="11" bindinput="inputChange" class="input" placeholder="请输入電話" required></input>
+    </view>
+
+    <!-- <view class="modal-input">
+      <input placeholder-class="input-holder" type="text"  name="address" maxlength="50" bindinput="inputChange" class="input" placeholder="请输入地址" required></input>
+    </view> -->
+  </view>
+  <view class="modal-footer">
+    <button  class="btn-cancel" bindtap="onCancel" data-status="cancel" formType="reset">取消</button >
+    <button  class="btn-confirm" bindtap="onConfirm" data-status="confirm"  formType="submit">确定</button >
+  </view>
+</form> 
+</view>
+  <!-- <image mode='widthFix' class='bg' src='{{bg}}'></image>  -->
+</scroll-view>  
